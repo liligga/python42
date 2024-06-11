@@ -2,6 +2,7 @@ from aiogram import Router, F, types
 from aiogram.filters.command import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
+from config import database
 
 
 survey_router = Router()
@@ -68,5 +69,10 @@ async def process_genre(message: types.Message, state: FSMContext):
     data = await state.get_data()
     print(data)
     # сохранение data в БД
+    await database.execute("""
+        INSERT INTO survey_results (name, age, gender, genre) 
+        VALUES (?, ?, ?, ?)""",
+        (data['name'], data['age'], data['gender'], data['genre'])
+    )
     await state.clear()
     await message.answer("Спасибо за пройденный опрос!")
