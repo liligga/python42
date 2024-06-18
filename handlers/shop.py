@@ -1,6 +1,6 @@
 from aiogram import Router, F, types
 from aiogram.filters.command import Command
-import sqlite3
+from config import database
 
 
 shop_router = Router()
@@ -33,10 +33,20 @@ genres = ("фантастика", "драма", "ужас", "комедия")
 @shop_router.message(F.text.lower().in_(genres))
 async def show_books(message: types.Message):
     kb = types.ReplyKeyboardRemove()
-    genre = message.text # одно из genres
-    connection = sqlite3.connect("db.sqlite")
-    cursor = connection.cursor()
-    query = cursor.execute("SELECT * FROM books WHERE genre_id = 2")
-    books = query.fetchall()
-    print(books)
-    await message.answer("Книги из жанра ", reply_markup=kb)
+    genre = message.text.capitalize() # одно из genres
+    books = await database.fetch("""
+        SELECT * FROM books 
+        INNER JOIN genres ON books.genre_id = genres.id
+        WHERE genres.name = ?
+    """, (genre,))
+    # print(books)
+    await message.answer(f"Книги из жанра {genre}", reply_markup=kb)
+    for book in books:
+        photo = types.FSInputFile(book["image"])
+        await message.answer_photo(
+            photo=photo,
+            caption=f"{book['name']} - {book['price']} сом"
+        )
+    # await database.fetch("SELECT * FROM survey_results")
+
+

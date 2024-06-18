@@ -35,7 +35,8 @@ class Queries:
     """
     POPULATE_BOOKS = """
         INSERT INTO books (name, price, image, genre_id)
-        VALUES ("В конце они умрут", 200, "image/book1.jpg", 2),
-        ("Портрет Дариан Грея", 2000, "image/book2.jpg", 3),
-        ("Оно", 2000, "image/book2.jpg", 4)
+        VALUES ("В конце они умрут", 200, "images/book1.jpg", 2),
+        ("Портрет Дариан Грея", 2000, "images/book2.jpg", 3),
+        ("Оно", 2000, "images/book3.jpg", 4),
+        ("Маленький кот", 2000, "images/book4.jpg", 1)
     """
