@@ -8,6 +8,7 @@ from handlers import (
     shop_router,
     survey_router,
     picture_router,
+    mashina_router,
     echo_router
 )
 
@@ -27,6 +28,7 @@ async def main():
     dp.include_router(picture_router)
     dp.include_router(start_router)
     dp.include_router(survey_router)
+    dp.include_router(mashina_router)
     dp.include_router(shop_router)
 
     # в самом конце

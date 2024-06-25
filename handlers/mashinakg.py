@@ -8,4 +8,4 @@ mashina_router = Router()
 
 @mashina_router.message(Command("obyavlenia"))
 async def show_obyavlenia(message: types.Message):
-    await message.answer("Тут будут объявления")
+    await message.answer("https://www.house.kg/details/4793335f896ed8e4d1f4-26541312")

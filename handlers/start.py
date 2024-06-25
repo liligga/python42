@@ -1,3 +1,4 @@
+import asyncio
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
 
@@ -33,9 +34,10 @@ async def start_handler(message: types.Message):
     )
 
 
-@start_router.callback_query(F.data == "about")
+@start_router.callback_query(F.data == "subscription")
 async def about_handler(callback: types.CallbackQuery):
     await callback.answer() # для того чтобы бот не зависал
+    # await asyncio.sleep(10)
     await callback.message.answer("О нас")
 
 
