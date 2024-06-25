@@ -31,7 +31,7 @@ async def get_all_links():
     async with httpx.AsyncClient() as client:
         for i in range(1, 5):
             task = asyncio.create_task(get_page(client=client, page_number=i))
-            tasks.append(tasks)
+            tasks.append(task)
 
         results = await asyncio.gather(*tasks)
         for page in results:
